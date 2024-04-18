@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAVU..</title>
+<style>
+    body {
+        font-family: 'Courier New', monospace;
+        background-color: #000; /* Black background */
+        color: #fff; /* White text */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        text-align: center;
+    }
+    .question {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .buttons {
+        margin: 10px 0;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 0 10px;
+        cursor: pointer;
+        background-color: #333; /* Dark grey background for buttons */
+        color: #fff; /* White text for buttons */
+        border: none;
+        border-radius: 4px;
+    }
+    .message {
+        margin-top: 20px;
+        font-size: 15px;
+        max-width: 600px;
+        margin: auto;
+        text-align: left;
+        white-space: pre-wrap;
+        visibility: hidden;
+    }
+    .compliment {
+        margin: 5px 0;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="question">wanna know my list of things that i love about you?(⁠｡⁠•̀⁠ᴗ⁠-⁠)⁠✧</div>
+    <div class="buttons">
+        <button onclick="showMessage()">Yes</button>
+        <button id="noButton" onclick="moveButton()">No</button>
+    </div>
+    <div class="message" id="responseMessage"></div>
+</div>
+
+<script>
+const compliments = [
+    "1. Your eyes: I really admire your eyes, I love your eyes (⁠ᗒ⁠ᗩ⁠ᗕ⁠)",
+    "2. Your voice: I love hearing it",
+    "3. Your hair: It's so pretty it always looks good whether curly or straight, it suits you so well",
+    "4. Your smile: I love it when you smile. Keep smiling, baby",
+    "5. Your style: You have a good sense of style that really fits your personality",
+    "6. Your sense of humor: You're funny and I love it. You make me laugh even on the toughest days :)",
+    "7. Your intelligence: I learned something new from our conversations. You are amazing",
+    "8. Your listening skills: You make me feel heard and understood",
+    "9. Your personality: You're so sweet and kind",
+    "EVERYTHING ABOUT YOU IS PERFECT, I LOVE YOU SOO SO MUCH"
+];
+
+const colors = ["#E57373", "#BA68C8", "#64B5F6", "#81C784", "#FFD54F", "#4DB6AC", "#FF8A65", "#A1887F", "#90A4AE", "#D4E157"];
+
+function showMessage() {
+    const messageBox = document.getElementById('responseMessage');
+    messageBox.innerHTML = ''; // Clear previous messages
+    messageBox.style.visibility = 'visible';
+    let complimentIndex = 0;
+
+    function typeCompliment(i) {
+        if (i < compliments.length) {
+            let pos = 0;
+            const text = compliments[i];
+            const p = document.createElement('p');
+            p.className = 'compliment';
+            p.style.color = colors[i]; // Set the color for each compliment
+            messageBox.appendChild(p);
+
+            const interval = setInterval(() => {
+                if (pos < text.length) {
+                    p.textContent += text.charAt(pos);
+                    pos++;
+                } else {
+                    clearInterval(interval);
+                    typeCompliment(i + 1); // Type the next compliment
+                }
+            }, 50); // Adjust for typing speed
+        }
+    }
+
+    typeCompliment(complimentIndex);
+}
+
+function moveButton() {
+    var noButton = document.getElementById('noButton');
+    noButton.style.position = 'relative';
+    let moved = 0;
+    const interval = setInterval(() => {
+        if (moved < 500) { // Increase distance to ensure it moves far enough
+            noButton.style.left = `${moved}px`;
+            moved += 10; // Increase step size for a faster movement
+        } else {
+            clearInterval(interval);
+        }
+    }, 20); // Speed up the movement
+}
+</script>
+</body>
+</html>
